@@ -283,22 +283,30 @@ document.addEventListener('keyup', (e) => {
   }
 });
 
-const leftBtn = document.getElementById('leftBtn');
-const rightBtn = document.getElementById('rightBtn');
 const jumpBtn = document.getElementById('jumpBtn');
-
-leftBtn.addEventListener('mousedown', moveLeft);
-leftBtn.addEventListener('mouseup', stop);
-leftBtn.addEventListener('touchstart', moveLeft);
-leftBtn.addEventListener('touchend', stop);
-
-rightBtn.addEventListener('mousedown', moveRight);
-rightBtn.addEventListener('mouseup', stop);
-rightBtn.addEventListener('touchstart', moveRight);
-rightBtn.addEventListener('touchend', stop);
-
 jumpBtn.addEventListener('mousedown', jump);
 jumpBtn.addEventListener('touchstart', jump);
+
+const joystick = nipplejs.create({
+  zone: document.getElementById('joystick-container'),
+  mode: 'static',
+  position: { left: '50%', top: '50%' },
+  color: 'blue'
+});
+
+joystick.on('move', function (evt, data) {
+  if (data.direction) {
+    if (data.direction.angle === 'right') {
+      moveRight();
+    } else if (data.direction.angle === 'left') {
+      moveLeft();
+    }
+  }
+});
+
+joystick.on('end', function () {
+  stop();
+});
 
 loadStage(currentStageIndex);
 update();

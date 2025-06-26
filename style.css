@@ -1,14 +1,31 @@
 body {
   text-align: center;
+  overflow: hidden; /* ページのスクロールを無効化 */
+  margin: 0;
 }
 canvas {
   background-color: #eee;
   border: 1px solid #ccc;
+  touch-action: none; /* canvas上でのタッチ操作によるブラウザのデフォルト動作を無効化 */
 }
 #controls {
-  margin-top: 10px;
+  display: none; /* 既存のボタンは非表示に */
 }
-button {
-  padding: 10px 20px;
-  font-size: 16px;
+#joystick-container {
+  position: absolute;
+  bottom: 50px;
+  left: 50px;
+  width: 150px;
+  height: 150px;
+}
+#jump-button-container {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+#jumpBtn {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  font-size: 20px;
 }
