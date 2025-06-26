@@ -283,5 +283,22 @@ document.addEventListener('keyup', (e) => {
   }
 });
 
+const leftBtn = document.getElementById('leftBtn');
+const rightBtn = document.getElementById('rightBtn');
+const jumpBtn = document.getElementById('jumpBtn');
+
+leftBtn.addEventListener('mousedown', moveLeft);
+leftBtn.addEventListener('mouseup', stop);
+leftBtn.addEventListener('touchstart', moveLeft);
+leftBtn.addEventListener('touchend', stop);
+
+rightBtn.addEventListener('mousedown', moveRight);
+rightBtn.addEventListener('mouseup', stop);
+rightBtn.addEventListener('touchstart', moveRight);
+rightBtn.addEventListener('touchend', stop);
+
+jumpBtn.addEventListener('mousedown', jump);
+jumpBtn.addEventListener('touchstart', jump);
+
 loadStage(currentStageIndex);
 update();

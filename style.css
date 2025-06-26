@@ -5,3 +5,10 @@ canvas {
   background-color: #eee;
   border: 1px solid #ccc;
 }
+#controls {
+  margin-top: 10px;
+}
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+}
