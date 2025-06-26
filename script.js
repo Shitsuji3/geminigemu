@@ -3,6 +3,10 @@ const ctx = canvas.getContext('2d');
 
 let animationFrameId;
 
+let startTime;
+let elapsedTime = 0;
+let timerRunning = false;
+
 const projectiles = []; // 発射される球を管理する配列
 
 const player = {
@@ -86,8 +90,14 @@ function loadStage(stageIndex) {
     player.dy = 0;
     player.isJumping = false;
     player.jumpCount = 0;
+
+    if (stageIndex === 0 && !timerRunning) { // Start timer only on first stage load
+      startTime = Date.now();
+      timerRunning = true;
+    }
   } else {
-    alert('All Stages Cleared! Restarting from Stage 1!');
+    alert('All Stages Cleared! Time: ' + formatTime(elapsedTime));
+    timerRunning = false; // Stop the timer
     currentStageIndex = 0; // Reset to first stage
     loadStage(currentStageIndex);
   }
@@ -244,6 +254,11 @@ function update() {
     }
   }
 
+  if (timerRunning) {
+    elapsedTime = Date.now() - startTime;
+  }
+  drawTimer();
+
   animationFrameId = requestAnimationFrame(update);
 }
 
@@ -265,6 +280,21 @@ function jump() {
     player.dy = player.jumpPower;
     player.jumpCount++;
   }
+}
+
+function drawTimer() {
+  ctx.fillStyle = 'black';
+  ctx.font = '20px Arial';
+  ctx.fillText('Time: ' + formatTime(elapsedTime), 10, 30);
+}
+
+function formatTime(ms) {
+  const totalSeconds = Math.floor(ms / 1000);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  const milliseconds = Math.floor((ms % 1000) / 10);
+
+  return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}.${milliseconds.toString().padStart(2, '0')}`;
 }
 
 document.addEventListener('keydown', (e) => {
